@@ -46,7 +46,7 @@ setup_requires = [
 ]
 
 install_requires = [
-    'Flask>=0.11',
+    'Flask>=1.0.0',
     'Flask-Login>=0.3.0',
     'Flask-Mail>=0.7.3',
     'Flask-Principal>=0.3.3',
@@ -59,15 +59,15 @@ install_requires = [
 packages = find_packages()
 
 setup(
-    name='Flask-Security',
-    version='3.0.0',
+    name='Flask-Security-Classic',
+    version='3.0.1',
     description=__doc__,
     long_description=readme,
     keywords='flask security',
     license='MIT',
     author='Matt Wright',
     author_email='matt@nobien.net',
-    url='https://github.com/mattupstate/flask-security',
+    url='https://github.com/jingz/flask-security',
     packages=packages,
     zip_safe=False,
     include_package_data=True,
@@ -84,11 +84,9 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Development Status :: 4 - Beta',

@@ -362,6 +362,8 @@ class PeeweeUserDatastore(PeeweeDatastore, UserDatastore):
             return self.user_model.get(self.user_model.id == identifier)
         except ValueError:
             pass
+        except self.user_model.DoesNotExist:
+            pass
 
         for attr in get_identity_attributes():
             column = getattr(self.user_model, attr)

@@ -24,7 +24,6 @@ def test_recoverable_flag(app, client, get_message):
         assert isinstance(app, Flask)
         assert isinstance(user, UserMixin)
         recorded.append(user)
-
     authenticate(client)
 
     # Test change view
