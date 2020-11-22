@@ -17,9 +17,9 @@ def test_cli_createuser(script_info):
     runner = CliRunner()
 
     # Missing params
-    result = runner.invoke(
+    result1 = runner.invoke(
         users_create, input='1234\n1234\n', obj=script_info)
-    assert result.exit_code != 0
+    assert result1.exit_code != 0
 
     # Create user with invalid email
     result = runner.invoke(

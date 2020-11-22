@@ -55,14 +55,20 @@ def app(request):
         app.config['SECURITY_' + opt.upper()] = opt in request.keywords
 
     if 'settings' in request.keywords:
-        for key, value in request.keywords['settings'].kwargs.items():
+        settings = list(filter(lambda m: m.name == 'settings',
+            request.keywords._markers['pytestmark']))[0]
+        for key, value in settings.kwargs.items():
             app.config['SECURITY_' + key.upper()] = value
 
     mail = Mail(app)
+
     if 'babel' not in request.keywords or \
-            request.keywords['babel'].args[0]:
+            list(filter(lambda m: m.name == 'babel', request.keywords._markers['pytestmark']))[0].args[0]:
+
+        #or request.keywords['babel'].args[0]:
         babel = Babel(app)
         app.babel = babel
+
     app.json_encoder = JSONEncoder
     app.mail = mail
 
@@ -110,6 +116,14 @@ def app(request):
     def post_register():
         return render_template('index.html', content='Post Register')
 
+    @app.route('/post_confirm')
+    def post_confirm():
+        return render_template('index.html', content='Post Confirm')
+
+    @app.route('/post_reset')
+    def post_reset():
+        return render_template('index.html', content='Post Reset')
+
     @app.route('/admin')
     @roles_required('admin')
     def admin():
@@ -132,6 +146,7 @@ def app(request):
     @app.route('/page1')
     def page_1():
         return 'Page 1'
+
     return app
 
 
@@ -212,7 +227,10 @@ def sqlalchemy_datastore(request, app, tmpdir):
     with app.app_context():
         db.create_all()
 
-    request.addfinalizer(lambda: os.remove(path))
+    def tear_down():
+        os.close(f)
+        os.remove(path)
+    request.addfinalizer(tear_down)
 
     return SQLAlchemyUserDatastore(db, User, Role)
 
@@ -270,7 +288,11 @@ def sqlalchemy_session_datastore(request, app, tmpdir):
     with app.app_context():
         Base.metadata.create_all(bind=engine)
 
-    request.addfinalizer(lambda: os.remove(path))
+    def tear_down():
+        db_session.close()
+        os.close(f)
+        os.remove(path)
+    request.addfinalizer(tear_down)
 
     return SQLAlchemySessionUserDatastore(db_session, User, Role)
 
@@ -319,7 +341,12 @@ def peewee_datastore(request, app, tmpdir):
         for Model in (Role, User, UserRoles):
             Model.create_table()
 
-    request.addfinalizer(lambda: os.remove(path))
+    def tear_down():
+        db.close_db(None)
+        os.close(f)
+        os.remove(path)
+
+    request.addfinalizer(tear_down)
 
     return PeeweeUserDatastore(db, User, Role, UserRoles)
 
@@ -449,7 +476,7 @@ def datastore(
 
 
 @pytest.fixture()
-def script_info(app, datastore):
+def script_info(app, sqlalchemy_datastore):
     try:
         from flask.cli import ScriptInfo
     except ImportError:
@@ -459,6 +486,6 @@ def script_info(app, datastore):
         app.config.update(**{
             'SECURITY_USER_IDENTITY_ATTRIBUTES': ('email', 'username')
         })
-        app.security = Security(app, datastore=datastore)
+        app.security = Security(app, datastore=sqlalchemy_datastore)
         return app
     return ScriptInfo(create_app=create_app)

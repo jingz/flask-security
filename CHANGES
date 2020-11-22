@@ -3,10 +3,61 @@ Flask-Security Changelog
 
 Here you can see the full list of changes between each Flask-Security release.
 
-Version 3.0.0
+Version 3.1.0
 -------------
 
 Released TBD
+
+Added:
+
+- (#784) i18n: added Japanese translation (@kantorii)
+- (#776) i18n: add Portuguese (Portugal) translation (@micael-grilo)
+- (#796) i18n: added Chinese-Simple translation (@Steinkuo)
+- (#779) Let User model specify password verification and update methods (@mklassen)
+- (#748) i18n: configurable the dirname domain (@escudero)
+- (#743) tests: improved translations checks (@jirikuncar)
+- (#730) Customizable send_mail (@abulte)
+- (#727) Docs for OAauth2-based custom login manager (@Jaza)
+- (#717) Allow custom login_manager to be passed in to Flask-Security (@Jaza)
+- (#703) Support application factory pattern, simplified keyword arguments (@briancappello)
+- (#714) Make SECURITY_PASSWORD_SINGLE_HASH a list of scheme ignoring double hash (@noirbizarre)
+- (#697) Add base template to security templates (@grihabor)
+- (#691) Documentation/Quickstart: Fix SQLAlchemy app example for missing render method and adding salt (@KshitijKarthick)
+- (#713) i18n: add brazilian portuguese translation (@dinorox)
+- (#487) Use Security.render_template in mails too (@noirbizarre)
+- (#679) Optimize DB accesses by using an SQL JOIN when retrieving a user. Make `roles` in user model query optimization "optional". (@nfvs)
+
+Fixed:
+- (#767) docs: fixed proxy import (@biomap)
+- (#750) docs: add missing imports (@allanice001)
+- (#747) Removed redundant `next` parameter from login_user.html (@rickwest)
+- (#439) HTTP Auth now respects SECURITY_USER_IDENTITY_ATTRIBUTES (@pnpnpn)
+- (#700) Anchor links in website are not working (@alemangui)
+- (#722) password recovery confirmation on deleted user (@kesara)
+- (#678) AttributeError: 'NoneType' object has no attribute 'password' (@alemangui, @kesara)
+- (#662) bug: User is logged in automatically on email confimation. (@kesara)
+- (#692) utils: fix incorrect email sender type (@switowski)
+- (#685) Error with email sender (@williamcheng-web)
+- (#675) Fix AttributeError in _request_loader (@sbagan)
+- (#696) Fixed broken Click link (@williamhatcher)
+- (#710) i18n: Spanish translation (@maukoquiroga)
+- (#712) Improve German translation (@eseifert)
+- (#357) bug: Avoid Timing Attack (@cancan101, fixed @cript0nauta (#676))
+- (#693) Making sure we pass the sender address in send_mail() as a string (#695 by @ochronus)
+- (#506) bug: WindowsError when running tests under Windows (@reambus in #683)
+- (#681) bug: Error when request is JSON but a list rather than an object (#682 by @Morabaraba)
+- (#670) bug: _get_unauthorized_view() results in a redirect loop if the referrer is the page we just came from (@nfvs in #671)
+- (#669) Fix for Read the Docs. Builds and release dates. (@jirikuncar)
+- (#660) `csrf_enabled` deprecation in flask-wtf fix. (@abulte)
+
+Removed:
+- (#664) Remove automatic login on email confirmation.  (@kesara)
+
+
+Version 3.0.0
+-------------
+
+Released May 29th 2017
 
 - Fixed a bug when user clicking confirmation link after confirmation
   and expiration causes confirmation email to resend. (see #556)
