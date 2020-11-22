@@ -1,5 +1,7 @@
 .. note::
-   This project is non maintained anymore. Consider the `Flask-Security-Too <https://flask-security-too.readthedocs.io/en/stable/>`_ project as an alternative.
+   This project is maintained by making all existing test cases pass along with updating dependecies,
+   fixing necessary bugs and adding necessary featuers.
+   For feature-rich, consider another alternative the `Flask-Security-Too <https://flask-security-too.readthedocs.io/en/stable/>`_ project as an alternative.
    
 Flask-Security
 ===================
