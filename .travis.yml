@@ -4,9 +4,8 @@ notifications:
 language: python
 
 python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
+  - "3.7"
+  - "3.8"
   - "pypy"
 
 addons:
@@ -76,5 +75,5 @@ deploy:
   on:
     repo: mattupstate/flask-security
     tags: true
-    python: "2.7"
+    python: "3.7"
     condition: $REQUIREMENTS = release
