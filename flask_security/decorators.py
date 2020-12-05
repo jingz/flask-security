@@ -74,6 +74,11 @@ def _check_token():
     return False
 
 
+# intent to expose to external for flexible usage.
+def check_auth_token():
+    return _check_token()
+
+
 def _check_http_auth():
     auth = request.authorization or BasicAuth(username=None, password=None)
     if not auth.username:

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """Simple security for Flask apps."""
 
 from setuptools import find_packages, setup
@@ -60,7 +59,7 @@ packages = find_packages()
 
 setup(
     name='Flask-Security-Classic',
-    version='3.0.1',
+    version='3.0.2',
     description=__doc__,
     long_description=readme,
     keywords='flask security',
